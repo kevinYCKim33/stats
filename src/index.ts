@@ -10,12 +10,19 @@ const matches = fs
     return row.split(",");
   });
 
+const homeWin = "H";
+const awayWin = "A";
+// no mention of draws...bad architecture;
+const draw = "D";
+// draw never gets used...again that's weird...
+// other engineers will remove it
+
 let manUnitedWins = 0;
 // console.log(matches);
 for (let match of matches) {
-  if (match[1] === "Man United" && match[5] === "H") {
+  if (match[1] === "Man United" && match[5] === homeWin) {
     manUnitedWins++;
-  } else if (match[2] === "Man United" && match[5] === "A") {
+  } else if (match[2] === "Man United" && match[5] === awayWin) {
     manUnitedWins++;
   }
 }
