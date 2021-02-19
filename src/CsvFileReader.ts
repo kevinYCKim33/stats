@@ -1,15 +1,19 @@
 // This course came out a little after 05/22/2019
 import fs from "fs"; // npm install @types/node
 // fs is built in with node
-import { dateStringToDate } from "./utils";
-import { MatchResult } from "./MatchResult";
 
-type MatchData = [Date, string, string, number, number, MatchResult, string];
-export class CsvFileReader {
-  data: MatchData[] = []; // an array of MatchData arrays
+// T is usually shorthand for TypeOfData
+// The Big Refactor: have CsvFileReader be generic enough that it can work with any csv's
+// i.e. reading a csv file, separating by newline and then separating by commas is a timeless csv activity
+// what you decide to do from then on is up ot CsvFileReader's child classes... hence why mapRow is abstract
+export abstract class CsvFileReader<T> {
+  data: T[] = []; // an array of MatchData arrays
   // data: string[][] = []; // no longer valid
+  // pretend T[] = [] now says MatchData[] = []
 
   constructor(public filename: string) {}
+
+  abstract mapRow(row: string[]): T;
 
   read(): void {
     this.data = fs
@@ -20,19 +24,6 @@ export class CsvFileReader {
       .map((row: string): string[] => {
         return row.split(",");
       })
-      // ['10/08/2018','Man United','Leicester','2','1','H','A Marriner']
-      .map(
-        (row: string[]): MatchData => {
-          return [
-            dateStringToDate(row[0]),
-            row[1],
-            row[2],
-            parseInt(row[3]),
-            parseInt(row[4]),
-            row[5] as MatchResult, // type assertion: hey TS this isn't just a string; it's an enum!
-            row[6],
-          ];
-        }
-      );
+      .map(this.mapRow);
   }
 }

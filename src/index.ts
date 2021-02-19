@@ -1,16 +1,10 @@
-import { CsvFileReader } from "./CsvFileReader";
-import { MatchResult } from "./MatchResult";
-const reader = new CsvFileReader("football.csv");
+import { MatchReader } from "./MatchReader";
+import { MatchResult } from "./MatchResult"; // enum: H, A, D
+const reader = new MatchReader("football.csv");
+
+// when this executes, it returns nothing, but reader's data has all the good meat inside of it
+// MatchReader instance itself doesn't have read(), but it inherits it from its abstract parent
 reader.read();
-
-console.log(reader.data);
-
-const homeWin = "H";
-const awayWin = "A";
-// no mention of draws...bad architecture;
-const draw = "D";
-// draw never gets used...again that's weird...
-// other engineers will remove it
 
 let manUnitedWins = 0;
 // console.log(matches);
