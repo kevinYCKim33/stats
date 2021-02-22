@@ -13,11 +13,11 @@ import { Summary } from "./Summary";
 
 // you can do this with static methods
 const matchReader = MatchReader.fromCsv("football.csv");
-matchReader.load();
+matchReader.load(); // matchReader.matches now has parsed Csv data
 
 // instead of this...
 // const summary = new Summary(new WinsAnalysis("Tottenham"), new ConsoleReport());
-// const summary = new Summary(new WinsAnalysis("Tottenham"), new HtmlReport());
+// const summary = new Summary(new WinsAnalysis("Man United"), new HtmlReport());
 // summary.buildAndPrintReport(matchReader.matches);
 
 // you can do this with static methods
