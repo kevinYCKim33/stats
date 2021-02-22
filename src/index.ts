@@ -11,14 +11,4 @@ const matchReader = new MatchReader(csvFileReader); // csvFileReader has an inte
 matchReader.load();
 // how matchReader.matches has all my list of match results in proper Date, string, enum format
 
-let manUnitedWins = 0;
-// console.log(matches);
-for (let match of matchReader.matches) {
-  if (match[1] === "Man United" && match[5] === MatchResult.HomeWin) {
-    manUnitedWins++;
-  } else if (match[2] === "Man United" && match[5] === MatchResult.AwayWin) {
-    manUnitedWins++;
-  }
-}
-
 console.log(`Man United won ${manUnitedWins} games`);

@@ -2,10 +2,6 @@ import { CsvFileReader } from "./CsvFileReader";
 import { dateStringToDate } from "./utils";
 import { MatchResult } from "./MatchResult";
 
-// Tuples work well with CSVs
-type MatchData = [Date, string, string, number, number, MatchResult, string];
-// ['10/08/2018','Man United','Leicester','2','1','H','A Marriner']
-
 export class MatchReader extends CsvFileReader<MatchData> {
   // justifiable Tuple
 
