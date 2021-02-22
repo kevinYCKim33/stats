@@ -1,6 +1,7 @@
 import { dateStringToDate } from "./utils";
 import { MatchResult } from "./MatchResult";
 import { MatchData } from "./MatchData";
+import { CsvFileReader } from "./CsvFileReader";
 
 interface DataReader {
   read(): void;
@@ -8,6 +9,10 @@ interface DataReader {
 }
 
 export class MatchReader {
+  static fromCsv(filename: string): MatchReader {
+    return new MatchReader(new CsvFileReader(filename));
+  }
+
   matches: MatchData[] = [];
 
   // new MatchReader().reader
@@ -17,7 +22,10 @@ export class MatchReader {
 
   load(): void {
     // this.reader now has access to this.read() and this.data
-    this.reader.read(); // hey CsvFileReader, go execute your read()!
+    this.reader.read();
+    // hey CsvFileReader, go execute your read()
+    // where all you do is take csv and convert it into an array of subarray of strings!!
+
     // hey csvFileReader go do your job! and when you're done tack on your work to my this.matches!
     this.matches = this.reader.data.map(
       // ['10/08/2018','Man United','Leicester','2','1','H','A Marriner']

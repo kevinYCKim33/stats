@@ -1,14 +1,25 @@
 import { MatchReader } from "./MatchReader";
-import { CsvFileReader } from "./CsvFileReader";
-import { MatchResult } from "./MatchResult"; // enum: H, A, D
+import { Summary } from "./Summary";
 
-// Create an object that satisfies the 'DataReader' interface
-const csvFileReader = new CsvFileReader("football.csv"); // all this wants is a filename as first and only argument
+// import { CsvFileReader } from "./CsvFileReader";
+// import { ConsoleReport } from "./reportTargets/ConsoleReport";
+// import { WinsAnalysis } from "./analyzers/WinsAnalysis";
+// import { HtmlReport } from "./reportTargets/HtmlReport";
 
-// Create an instance of MatchReader and pass in something satisfying
-// the 'DataReader' interface
-const matchReader = new MatchReader(csvFileReader); // csvFileReader has an interface of DataReader in MatchReader.ts
+// instead of this...
+// const csvFileReader = new CsvFileReader("football.csv"); // all this wants is a filename as first and only argument
+// const matchReader = new MatchReader(csvFileReader); // csvFileReader has an interface of DataReader in MatchReader.ts
+// matchReader.load();
+
+// you can do this with static methods
+const matchReader = MatchReader.fromCsv("football.csv");
 matchReader.load();
-// how matchReader.matches has all my list of match results in proper Date, string, enum format
 
-console.log(`Man United won ${manUnitedWins} games`);
+// instead of this...
+// const summary = new Summary(new WinsAnalysis("Tottenham"), new ConsoleReport());
+// const summary = new Summary(new WinsAnalysis("Tottenham"), new HtmlReport());
+// summary.buildAndPrintReport(matchReader.matches);
+
+// you can do this with static methods
+const summary = Summary.winsAnalysisWithHtmlReport("Tottenham");
+summary.buildAndPrintReport(matchReader.matches);

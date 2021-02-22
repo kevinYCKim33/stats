@@ -1,6 +1,7 @@
 import { CsvFileReader } from "./CsvFileReader";
-import { dateStringToDate } from "./utils";
-import { MatchResult } from "./MatchResult";
+import { dateStringToDate } from "../utils";
+import { MatchResult } from "../MatchResult";
+import { MatchData } from "../MatchData";
 
 export class MatchReader extends CsvFileReader<MatchData> {
   // justifiable Tuple
